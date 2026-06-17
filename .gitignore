@@ -64,5 +64,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# secret schema
+# secret files
 secretschema.sql
+logs.py
