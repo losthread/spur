@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from ..routes import users
+from ..routes import users, urls
 import uvicorn
 
 # create fastAPI instance - app tha uvicorn serves
@@ -7,6 +7,7 @@ app = FastAPI()
 
 # include routes in app
 app.include_router(users.router)
+app.include_router(urls.router)
 
 # run server
 if __name__ == '__main__':
