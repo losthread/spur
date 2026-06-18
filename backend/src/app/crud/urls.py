@@ -1,6 +1,6 @@
 from ..core.config import conn
 from .exception import handle_error
-from ..schemas.urls import URLResponse
+from ..schemas.urls import URLResponse, URLLookupResponse
 from fastapi import HTTPException
 from psycopg2.errors import UniqueViolation
 import secrets
@@ -55,5 +55,45 @@ def create_short_url(url, user_id):
         updated_at=row[5]
     )
 
+  except Exception as e:
+    handle_error(e, cursor)
+
+def retrieve_original_url(short_code):
+  cursor = conn.cursor()
+
+  try:
+    cursor.execute(
+      """
+        UPDATE urls
+        SET times_visited = times_visited + 1, last_visited = NOW()
+        WHERE short_code = %s
+        RETURNING url_id, url, short_code, created_at, updated_at
+      """,
+      (short_code,)
+    )
+    row = cursor.fetchone()
+    conn.commit()
+
+    # http 404 shortcode not found
+    if row is None:
+      cursor.close()
+      raise HTTPException(status_code = 404, detail = 'Invalid URL! Please enter the correct URL')
+
+    cursor.close()
+
+    return URLLookupResponse(
+      url_id = row[0],
+      url = row[1],
+      short_code = row[2],
+      created_at = row[3],
+      updated_at = row[4]
+    )
+
+  # catch 404
+  except HTTPException:
+    cursor.close()
+    raise 
+
+  # handle DB errors
   except Exception as e:
     handle_error(e, cursor)

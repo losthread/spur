@@ -9,3 +9,8 @@ router = APIRouter()
 @router.post('/shorten', response_model = URLResponse)
 async def create_short_url(url: URLCreate, user_id: int = Depends(get_user_id)) -> URLResponse:
   return u.create_short_url(url.url, user_id)
+  
+# retrieve original URL
+@router.get('/shorten/{short_code}', response_model = URLLookupResponse)
+async def retrieve_original_url(short_code: str) -> URLLookupResponse:
+  return u.retrieve_original_url(short_code)

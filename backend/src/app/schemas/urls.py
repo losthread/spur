@@ -34,6 +34,6 @@ class URLLookupResponse(BaseModel):
 class URLStatsResponse(BaseModel):
   analytics_id: int
   short_code: str
-  total_visits: int
+  times_visited: int
   last_visited: datetime | None = None
   updated_at: datetime
