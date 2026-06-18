@@ -177,6 +177,7 @@ def get_url_stats(short_code, user_id):
         SELECT url_id, url, short_code, times_visited, last_visited, created_at, updated_at
         FROM urls
         WHERE short_code = %s AND user_id = %s
+        ORDER BY updated_at
       """,
       (short_code, user_id)
     )

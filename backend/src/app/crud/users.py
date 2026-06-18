@@ -1,6 +1,6 @@
 from ..core.config import conn
 from ..core.auth import hash_password, verify_password, create_jwt_token
-from ..schemas.users import UserProfile
+from ..schemas.users import UserProfile, UserUrlResponse
 from .exception import handle_error
 from fastapi import HTTPException
 
@@ -81,32 +81,81 @@ def login(email, password):
     handle_error(e, cursor)
 
 def get_user_info(user_id):
+  cursor = conn.cursor()
+
+  try:
+    cursor.execute(
+      """
+        SELECT user_id, username, email, created_at
+        FROM users
+        WHERE user_id = %s
+      """,
+      (user_id,)
+    )
+
+    row = cursor.fetchone()
+
+    if row is None:
+      cursor.close()
+      raise HTTPException(status_code=404, detail="User not found")
+
+    cursor.close()
+
+    return UserProfile(
+      user_id=row[0],
+      username=row[1],
+      email=row[2],
+      created_at=row[3]
+    )
+
+  # handle 404
+  except HTTPException:
+    raise
+
+  # handle db errors
+  except Exception as e:
+    handle_error(e, cursor)
+
+def get_my_urls(user_id):
   # create cursor
   cursor = conn.cursor()
 
-  cursor.execute(
-    """
-      SELECT user_id, username, email, created_at
-      FROM users
-      WHERE user_id = %s
-    """,
-    (user_id,)
-  )
-  row = cursor.fetchone()
+  try:
+    cursor.execute(
+      """
+        SELECT users.user_id, users.username, urls.url_id, urls.url, urls.short_code, urls.created_at
+        FROM users
+        JOIN urls
+        ON users.user_id = urls.user_id
+        WHERE users.user_id = %s
+        ORDER BY urls.created_at DESC
+      """,
+      (user_id,)
+    )
+    rows = cursor.fetchall()
 
-  # row not found 404
-  if row is None:
-    conn.rollback()
-    cursor.close()
-    raise HTTPException(status_code = 404, detail = "User not found")
-  
-  cursor.close()
+    # rows not found 404
+    if rows is None:
+      cursor.close()
+      raise HTTPException(status_code = 404, detail = "User not found")
+    
+    cursor.close
 
-  user = UserProfile(
-    user_id = row[0],
-    username = row[1],
-    email = row[2],
-    created_at = row[3]
-  )
+    result = list()
 
-  return user
+    for row in rows:
+      result.append(
+        UserUrlResponse(
+          user_id=row[0],
+          username=row[1],
+          url_id=row[2],
+          url=row[3],
+          short_code=row[4],
+          created_at=row[5]
+        )
+      )
+
+    return result
+
+  except Exception as e:
+    handle_error(e, cursor)

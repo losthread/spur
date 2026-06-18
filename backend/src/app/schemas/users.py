@@ -15,3 +15,11 @@ class UserProfile(BaseModel):
   username: str
   email: EmailStr
   created_at: datetime
+
+class UserUrlResponse(BaseModel):
+  user_id: int
+  username: str
+  url_id: int
+  url: str
+  short_code: str
+  created_at: datetime
