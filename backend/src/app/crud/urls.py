@@ -36,7 +36,6 @@ def create_short_url(url, user_id):
         )
         row = cursor.fetchone()
         conn.commit()
-
         break
 
       # if duplicate exists then change it
@@ -95,5 +94,43 @@ def retrieve_original_url(short_code):
     raise 
 
   # handle DB errors
+  except Exception as e:
+    handle_error(e, cursor)
+
+def update_url(short_code, new_url, user_id):
+  cursor = conn.cursor()
+
+  try:
+    cursor.execute(
+      """
+        UPDATE urls
+        SET url = %s, updated_at = NOW()
+        WHERE short_code = %s AND user_id = %s
+        RETURNING user_id, url_id, url, short_code, created_at, updated_at
+      """,
+      (new_url, short_code, user_id)
+    )
+
+    row = cursor.fetchone()
+
+    if row is None:
+      cursor.close()
+      raise HTTPException(status_code=404, detail="Short URL not found")
+
+    conn.commit()
+    cursor.close()
+
+    return URLResponse(
+      user_id=row[0],
+      url_id=row[1],
+      url=row[2],
+      short_code=row[3],
+      created_at=row[4],
+      updated_at=row[5]
+    )
+
+  except HTTPException:
+    raise
+
   except Exception as e:
     handle_error(e, cursor)

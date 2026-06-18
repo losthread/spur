@@ -14,3 +14,8 @@ async def create_short_url(url: URLCreate, user_id: int = Depends(get_user_id)) 
 @router.get('/shorten/{short_code}', response_model = URLLookupResponse)
 async def retrieve_original_url(short_code: str) -> URLLookupResponse:
   return u.retrieve_original_url(short_code)
+
+# update existing short url
+@router.put('/shorten/{short_code}', response_model=URLResponse)
+async def update_url(short_code: str, update: URLUpdate, user_id: int = Depends(get_user_id)) -> URLResponse:
+  return u.update_url(short_code, update.url, user_id)

@@ -5,6 +5,10 @@ from datetime import datetime
 class URLCreate(BaseModel):
   url: str
 
+# update long URL: PUT /shorten url in body
+class URLUpdate(BaseModel):
+  url: str
+
 # get url creation details after making it
 class URLResponse(BaseModel):
   user_id: int
@@ -13,10 +17,6 @@ class URLResponse(BaseModel):
   short_code: str
   created_at: datetime
   updated_at: datetime
-
-# update short URL: PUT /shorten url in body
-class URLUpdate(BaseModel):
-  updated_url: str
 
 # Enter short url to delete 
 class URLDelete(BaseModel):
