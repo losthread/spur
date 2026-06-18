@@ -76,7 +76,7 @@ def retrieve_original_url(short_code):
     # http 404 shortcode not found
     if row is None:
       cursor.close()
-      raise HTTPException(status_code = 404, detail = 'Invalid URL! Please enter the correct URL')
+      raise HTTPException(status_code = 404, detail = 'Short URL not found')
 
     cursor.close()
 
@@ -129,6 +129,38 @@ def update_url(short_code, new_url, user_id):
       updated_at=row[5]
     )
 
+  except HTTPException:
+    raise
+
+  except Exception as e:
+    handle_error(e, cursor)
+
+def delete_url(short_code: str, user_id: int):
+  cursor = conn.cursor()
+
+  try:
+    cursor.execute(
+      """
+        DELETE FROM urls
+        WHERE short_code = %s AND user_id = %s
+        RETURNING url_id
+      """,
+      (short_code, user_id)
+    )
+
+    row = cursor.fetchone()
+
+    # raise 404 url not found
+    if row is None:
+      conn.rollback()
+      cursor.close()
+      raise HTTPException(status_code=404, detail="Short URL not found")
+
+    conn.commit()
+    cursor.close()
+    return True
+  
+  # catch 404
   except HTTPException:
     raise
 

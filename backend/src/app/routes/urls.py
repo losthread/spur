@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status, Response
 from ..crud import urls as u
 from ..schemas.urls import URLCreate, URLDelete, URLLookupResponse, URLStatsResponse, URLUpdate, URLResponse
 from ..core.dependencies import get_user_id
@@ -19,3 +19,8 @@ async def retrieve_original_url(short_code: str) -> URLLookupResponse:
 @router.put('/shorten/{short_code}', response_model=URLResponse)
 async def update_url(short_code: str, update: URLUpdate, user_id: int = Depends(get_user_id)) -> URLResponse:
   return u.update_url(short_code, update.url, user_id)
+
+@router.delete('/shorten/{short_code}', response_model=URLResponse)
+async def delete_url(short_code, user_id: int = Depends(get_user_id)) -> URLResponse:
+  u.delete_url(short_code, user_id)
+  return Response(status_code = status.HTTP_204_NO_CONTENT)
