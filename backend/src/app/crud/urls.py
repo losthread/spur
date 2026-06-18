@@ -1,6 +1,6 @@
 from ..core.config import conn
 from .exception import handle_error
-from ..schemas.urls import URLResponse, URLLookupResponse
+from ..schemas.urls import URLResponse, URLLookupResponse, URLStatsResponse
 from fastapi import HTTPException
 from psycopg2.errors import UniqueViolation
 import secrets
@@ -160,6 +160,45 @@ def delete_url(short_code: str, user_id: int):
     cursor.close()
     return True
   
+  # catch 404
+  except HTTPException:
+    raise
+
+  except Exception as e:
+    handle_error(e, cursor)
+
+def get_url_stats(short_code, user_id):
+  # create cursor
+  cursor = conn.cursor()
+
+  try:
+    cursor.execute(
+      """
+        SELECT url_id, url, short_code, times_visited, last_visited, created_at, updated_at
+        FROM urls
+        WHERE short_code = %s AND user_id = %s
+      """,
+      (short_code, user_id)
+    )
+    row = cursor.fetchone()
+
+    # handle 404 short_code not found
+    if row is None:
+      cursor.close()
+      raise HTTPException(status_code = 404, detail = "Short URL not found")
+    
+    cursor.close()
+
+    return URLStatsResponse(
+      url_id = row[0],
+      url = row[1],
+      short_code = row[2],
+      times_visited = row[3],
+      last_visited = row[4],
+      created_at = row[5],
+      updated_at = row[6]
+    )
+
   # catch 404
   except HTTPException:
     raise

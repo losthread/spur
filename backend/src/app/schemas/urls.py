@@ -17,11 +17,7 @@ class URLResponse(BaseModel):
   short_code: str
   created_at: datetime
   updated_at: datetime
-
-# Enter short url to delete 
-class URLDelete(BaseModel):
-  short_code: str
-
+  
 # visit short url to get info
 class URLLookupResponse(BaseModel):
   url_id: int 
@@ -32,8 +28,10 @@ class URLLookupResponse(BaseModel):
 
 # get stats about the url
 class URLStatsResponse(BaseModel):
-  analytics_id: int
+  url_id: int
+  url: str
   short_code: str
   times_visited: int
   last_visited: datetime | None = None
+  created_at: datetime
   updated_at: datetime
