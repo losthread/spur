@@ -1,19 +1,19 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, HttpUrl
 from datetime import datetime
 
 # create short URL: POST /shorten url in body
 class URLCreate(BaseModel):
-  url: str
+  url: HttpUrl
 
 # update long URL: PUT /shorten url in body
 class URLUpdate(BaseModel):
-  url: str
+  url: HttpUrl
 
 # get url creation details after making it
 class URLResponse(BaseModel):
   user_id: int
   url_id: int
-  url: str
+  url: HttpUrl
   short_code: str
   created_at: datetime
   updated_at: datetime
@@ -21,7 +21,7 @@ class URLResponse(BaseModel):
 # visit short url to get info
 class URLLookupResponse(BaseModel):
   url_id: int 
-  url: str
+  url: HttpUrl
   short_code: str
   created_at: datetime
   updated_at: datetime
@@ -29,7 +29,7 @@ class URLLookupResponse(BaseModel):
 # get stats about the url
 class URLStatsResponse(BaseModel):
   url_id: int
-  url: str
+  url: HttpUrl
   short_code: str
   times_visited: int
   last_visited: datetime | None = None

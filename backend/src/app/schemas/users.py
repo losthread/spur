@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, HttpUrl
 from datetime import datetime
 
 class UserRegister(BaseModel):
@@ -20,6 +20,6 @@ class UserUrlResponse(BaseModel):
   user_id: int
   username: str
   url_id: int
-  url: str
+  url: HttpUrl
   short_code: str
   created_at: datetime
