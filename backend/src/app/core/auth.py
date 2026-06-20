@@ -3,12 +3,15 @@ from datetime import datetime, timedelta, timezone
 from argon2 import PasswordHasher
 from argon2.exceptions import VerificationError, VerifyMismatchError, InvalidHashError
 from jwt import ExpiredSignatureError, InvalidTokenError
+from google.oauth2 import id_token
+from google.auth.transport import requests
 import jwt 
 import os
 
 # load environment variables
 load_dotenv()
 
+# JWT AUTH
 JWT_SECRET = os.getenv("JWT_KEY")
 ALGORITHM = "HS256"
 
@@ -59,4 +62,16 @@ def decode_jwt_token(token: str):
 
   except InvalidTokenError:
     print("Invalid token")
+    return None
+  
+
+# GOOGLE OAuth2
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+
+def verify_google_token(token: str) -> dict | None:
+  try:
+    id_info = id_token.verify_oauth2_token(token, requests.Request(), GOOGLE_CLIENT_ID)
+    return id_info
+  
+  except Exception:
     return None

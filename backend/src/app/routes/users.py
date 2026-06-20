@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from ..crud import users as u
-from ..schemas.users import UserLogin, UserRegister, UserProfile, UserUrlResponse
+from ..schemas.users import UserLogin, UserRegister, UserProfile, UserUrlResponse, GoogleLoginRequest
 from ..core.dependencies import get_user_id
 
 router = APIRouter()
@@ -20,3 +20,7 @@ async def get_user_info(user_id: int = Depends(get_user_id)) -> UserProfile:
 @router.get('/users/me/urls', response_model=list[UserUrlResponse])
 async def get_my_urls(user_id: int = Depends(get_user_id)) -> list[UserUrlResponse]:
   return u.get_my_urls(user_id)
+
+@router.post('/login/google')
+async def google_login(payload: GoogleLoginRequest) -> dict:
+  return u.google_login(payload.token)

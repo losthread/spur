@@ -18,8 +18,12 @@ class UserProfile(BaseModel):
 
 class UserUrlResponse(BaseModel):
   user_id: int
-  username: str
+  username: str | None
+  email: EmailStr
   url_id: int
   url: HttpUrl
   short_code: str
   created_at: datetime
+
+class GoogleLoginRequest(BaseModel):
+  token: str
