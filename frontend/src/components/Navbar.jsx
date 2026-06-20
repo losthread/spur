@@ -5,9 +5,9 @@ const auth = ['Login', 'Register'];
 
 export default function Navbar() {
   return (
-    <div className="sticky top-0 backdrop-blur-xl bg-black/40 flex items-center justify-between lg:px-20 lg:py-5 border z-10">
+    <div className="sticky top-0 backdrop-blur-xl bg-black/40 flex items-center justify-between lg:px-20 lg:py-5 border z-200">
       <div className="flex items-center lg:gap-3">
-        <Link to='/'><img src="" alt="Logo" /></Link>
+        <Link to='/' className="w-10"><img src='../../public/spur.png' alt="Logo" /></Link>
         <a href="#top" className="lg:text-xl">Spur</a>
       </div>
 

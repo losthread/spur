@@ -2,16 +2,16 @@ import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
-import Chart from './Blocks/Chart'
+import HeroStats from './Blocks/HeroStats'
 
 export default function Hero() {
   return (
-    <section className="flex flex-1 items-center lg:gap-9 lg:px-20 lg:pt-30">
+    <section id="top" className="flex flex-1 items-center lg:gap-9 lg:px-20 lg:pt-30">
       <div className="flex flex-col flex-7 lg:gap-7">
         <div className="flex lg:gap-4 lg:text-xl text-amber-600/80 tracking-widest" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-          <h4>Shorten Links</h4>
+          <h4>SHORTEN LINKS</h4>
           <span>•</span>
-          <h4>Analyse Usage</h4>
+          <h4>ANALYSE USAGE</h4>
         </div>
 
         <div className="flex flex-col lg:gap-3 lg:text-6xl font-medium">
@@ -51,13 +51,13 @@ export default function Hero() {
 
         <div>
           <p className="text-muted-foreground/60 lg:text-xl tracking-widest" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-            Absolutely Free To Use
+            ABSOLUTELY FREE TO USE
           </p>
         </div>
       </div>
 
       <div className="flex-8 overflow-x-scroll">
-        <Chart />
+        <HeroStats />
       </div>
     </section>
   )
