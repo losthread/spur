@@ -1,8 +1,8 @@
 CREATE TABLE users (
   user_id SERIAL PRIMARY KEY,
-  username VARCHAR(50) UNIQUE NOT NULL,
+  username VARCHAR(50) UNIQUE,
   email VARCHAR(100) UNIQUE NOT NULL,
-  hashed_password TEXT NOT NULL,
+  hashed_password TEXT,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -12,7 +12,7 @@ CREATE TABLE urls (
   url TEXT NOT NULL,
   short_code VARCHAR(15) UNIQUE NOT NULL,
   times_visited INT DEFAULT 0,
-  last visited TIMESTAMPTZ DEFAULT NULL,
+  last_visited TIMESTAMPTZ DEFAULT NULL,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );

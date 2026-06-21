@@ -2,7 +2,7 @@ import Chart from './Blocks/Chart'
 
 export default function Analytics() {
   return (
-    <section className="flex flex-1 lg:gap-20 lg:px-20 lg:pt-20">
+    <section id='analytics' className="flex flex-1 lg:gap-20 lg:px-20 lg:pt-20 lg:mb-30">
       <div className="flex-1">
         <Chart />
       </div>

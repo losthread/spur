@@ -1,13 +1,19 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Flow from './components/Flow';
 import Analytics from './components/Analytics';
+import Footer from './components/Footer';
+import Login from './components/Login';
+import Register from './components/Register';
 
 export default function App() {
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
   return (
-    <>
+    <GoogleOAuthProvider clientId={googleClientId}>
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute top-10 -left-32 w-80 h-96 bg-amber-900/14 rounded-full blur-3xl"></div>
         <div className="absolute top-1/3 left-9/10 w-40 h-84 bg-yellow-900/9 rounded-full blur-2xl"></div>
@@ -28,9 +34,12 @@ export default function App() {
                 <Analytics /> 
               </section>
             } />
+            <Route path='/Login' element={<Login />} />
+            <Route path='/Register' element={<Register />} />
           </Routes>
+          <Footer /> 
         </div>
       </BrowserRouter>
-    </>
+    </GoogleOAuthProvider>
   )
 }
