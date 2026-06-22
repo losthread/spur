@@ -8,9 +8,14 @@ import Analytics from './components/Analytics';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
+import Redirect from './components/Redirect';
+import { useState } from 'react';
 
 export default function App() {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+      return !!localStorage.getItem('access_token');
+    });
 
   return (
     <GoogleOAuthProvider clientId={googleClientId}>
@@ -24,18 +29,19 @@ export default function App() {
 
       <BrowserRouter>
         <div className="flex flex-col lg:min-h-screen">
-          <Navbar />
+          <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           <Routes>
             <Route path='/' element={
               <section className='flex flex-col lg:gap-20'>
-                <Hero />
+                <Hero isLoggedIn={isLoggedIn} />
                 <Features />
                 <Flow /> 
                 <Analytics /> 
               </section>
             } />
-            <Route path='/Login' element={<Login />} />
+            <Route path='/Login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
             <Route path='/Register' element={<Register />} />
+            <Route path='/go/:shortCode' element={<Redirect />} />
           </Routes>
           <Footer /> 
         </div>

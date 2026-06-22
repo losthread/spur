@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Users, Link, TrendingUp } from 'lucide-react'
-import { Ripple } from '../ui/ripple';
 import { NumberTicker } from '../ui/number-ticker';
 
 function Counter({ target, label, icon: Icon, delay, position }) {
@@ -28,15 +27,13 @@ function Counter({ target, label, icon: Icon, delay, position }) {
 export default function HeroStats() {
   return (
     <div className="relative w-full flex items-center justify-center overflow-hidden">
-      <Ripple className='bg-amber-600/5' />
-
       <div className="relative w-full h-96">
         <Counter 
           target={5000} 
           label="Users Joined" 
           icon={Users} 
           delay={0}
-          position="top-4 left-4"
+          position="top-0 left-0"
         />
 
         <Counter 
@@ -44,7 +41,7 @@ export default function HeroStats() {
           label="Links Shortened" 
           icon={Link} 
           delay={500}
-          position="top-20 right-4"
+          position="top-30 right-0"
         />
 
         <Counter 
@@ -52,7 +49,7 @@ export default function HeroStats() {
           label="Total Clicks" 
           icon={TrendingUp} 
           delay={1000}
-          position="bottom-0 left-1/2 -translate-x-1/2"
+          position="bottom-0 left-0"
         />
       </div>
     </div>

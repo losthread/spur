@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { GoogleLogin } from '@react-oauth/google'
 
-export default function CardDemo() {
+export default function CardDemo({ setIsLoggedIn }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -42,6 +42,7 @@ export default function CardDemo() {
       if (response.ok)
       {
         localStorage.setItem('access_token', data.access_token);
+        setIsLoggedIn(true)
         navigate('/');
       }    
       else

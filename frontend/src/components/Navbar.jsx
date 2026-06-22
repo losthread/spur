@@ -1,17 +1,10 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const navlinks = ['Features', 'How it works', 'Analytics'];
 
-export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export default function Navbar({isLoggedIn, setIsLoggedIn}) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    setIsLoggedIn(!!token)
-  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
