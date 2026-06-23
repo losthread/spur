@@ -3,7 +3,7 @@ import { Users, Link, TrendingUp } from 'lucide-react'
 import { NumberTicker } from '../ui/number-ticker';
 
 function Counter({ target, label, icon: Icon, delay, position }) {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), delay)
@@ -29,7 +29,7 @@ export default function HeroStats() {
     <div className="relative w-full flex items-center justify-center overflow-hidden">
       <div className="relative w-full h-96">
         <Counter 
-          target={5000} 
+          target={20} 
           label="Users Joined" 
           icon={Users} 
           delay={0}
@@ -37,7 +37,7 @@ export default function HeroStats() {
         />
 
         <Counter 
-          target={25000} 
+          target={40} 
           label="Links Shortened" 
           icon={Link} 
           delay={500}
@@ -45,7 +45,7 @@ export default function HeroStats() {
         />
 
         <Counter 
-          target={150000} 
+          target={100} 
           label="Total Clicks" 
           icon={TrendingUp} 
           delay={1000}

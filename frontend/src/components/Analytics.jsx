@@ -22,17 +22,17 @@ export default function Analytics() {
         <h2 className="lg:text-5xl">See the details of every click</h2>
         <h5 className="text-muted-foreground lg:text-xl">Open any link's stats page to find totals, locations, and timing laid out clearly.</h5>
 
-        <ul className="space-y-3">
+        <ul className="flex flex-col lg:gap-3">
           <li className="flex items-start lg:gap-3">
-            <span className="w-2 h-2 rounded-full bg-amber-600 mt-2 shrink-0"></span>
+            <span className="lg:w-2 lg:h-2 rounded-full bg-amber-600 lg:mt-2 shrink-0"></span>
             <span className="text-muted-foreground">Total clicks per link, updated as they happen</span>
           </li>
           <li className="flex items-start lg:gap-3">
-            <span className="w-2 h-2 rounded-full bg-amber-600 mt-2 shrink-0"></span>
+            <span className="lg:w-2 lg:h-2 rounded-full bg-amber-600 lg:mt-2 shrink-0"></span>
             <span className="text-muted-foreground">Where in the world your traffic comes from</span>
           </li>
           <li className="flex items-start lg:gap-3">
-            <span className="w-2 h-2 rounded-full bg-amber-600 mt-2 shrink-0"></span>
+            <span className="lg:w-2 lg:h-2 rounded-full bg-amber-600 lg:mt-2 shrink-0"></span>
             <span className="text-muted-foreground">When your links get the most attention</span>
           </li>
         </ul>

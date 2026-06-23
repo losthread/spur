@@ -107,8 +107,8 @@ export default function CardDemo({ setIsLoggedIn }) {
 
         <form onSubmit={handleNormalLogin}>
           <CardContent>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
+            <div className="flex flex-col lg:gap-6">
+              <div className="grid lg:gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
@@ -120,12 +120,12 @@ export default function CardDemo({ setIsLoggedIn }) {
                 />
               </div>
 
-              <div className="grid gap-2">
+              <div className="grid lg:gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                   <a
                     href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="ml-auto inline-block lg:text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?
                   </a>
@@ -140,7 +140,7 @@ export default function CardDemo({ setIsLoggedIn }) {
                 />
               </div>
 
-              {error && <p className="text-red-500 text-sm">{error}</p>}
+              {error && <p className="text-red-500 lg:text-sm">{error}</p>}
             </div>
           </CardContent>
 

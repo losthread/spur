@@ -17,8 +17,7 @@ export default function Hero({ isLoggedIn }) {
     setError("");
     setShortCode("");
 
-    try
-    {
+    try {
       const response = await fetch("http://localhost:8000/shorten", {
         method: "POST",
         headers: {
@@ -30,23 +29,19 @@ export default function Hero({ isLoggedIn }) {
 
       const data = await response.json();
 
-      if (response.ok)
-      {
+      if (response.ok) {
         setShortCode(data.short_code);
       }
-      else
-      {
+      else {
         setError(data.detail || "Failed to shorten URL");
       }
     }
 
-    catch (err)
-    {
+    catch (err) {
       setError(`Error: ${err}`);
     }
 
-    finally
-    {
+    finally {
       setIsLoading(false);
     }
   };
@@ -78,7 +73,7 @@ export default function Hero({ isLoggedIn }) {
             <Input
               type="url"
               placeholder="https://example.com"
-              className="lg:py-5 lg:px-6 overflow-x-scroll rounded-xl lg:text-lg"
+              className="lg:py-5 lg:px-6 overflow-x-scroll lg:rounded-xl lg:text-lg"
               value={url}
               onChange={(e) => setURL(e.target.value)}
               required
@@ -87,7 +82,7 @@ export default function Hero({ isLoggedIn }) {
             <Button
               type="submit"
               disabled={isLoading}
-              className="rounded-xl lg:text-lg lg:py-5"
+              className="lg:rounded-xl lg:text-lg lg:py-5"
             >
               {isLoading ? "Shortening..." : "Shorten URL"}
             </Button>
@@ -97,7 +92,7 @@ export default function Hero({ isLoggedIn }) {
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
         {shortCode && (
-          <div className="flex items-center lg:gap-4 lg:py-1.5 lg:px-4 bg-amber-600/20 border border-amber-600/50 rounded-lg h-fit">
+          <div className="flex items-center lg:gap-4 lg:py-1.5 lg:px-4 bg-amber-600/20 border border-amber-600/50 lg:rounded-lg h-fit">
             <p className="lg:text-default text-muted-foreground min-w-fit">Your short URL:</p>
             <div className="w-full flex items-center justify-between">
               <a 
@@ -128,16 +123,16 @@ export default function Hero({ isLoggedIn }) {
         <div className="flex lg:gap-4">
           {!isLoggedIn ? (
             <>
-              <Link to="/register" className="lg:px-6 lg:py-2 lg:text-lg bg-amber-800/90 hover:bg-amber-900 transition-all duration-300 rounded-md flex lg:gap-2 items-center">
+              <Link to="/register" className="lg:px-6 lg:py-2 lg:text-lg bg-amber-800/90 hover:bg-amber-900 transition-all duration-300 lg:rounded-md flex lg:gap-2 items-center">
                 Sign up for free 
                 <ArrowRight size={20}/>
               </Link>
-              <Link to="/login" className="lg:px-6 lg:py-2 lg:text-lg bg-amber-800/90 hover:bg-amber-900 transition-all duration-300 rounded-md">
+              <Link to="/login" className="lg:px-6 lg:py-2 lg:text-lg bg-amber-800/90 hover:bg-amber-900 transition-all duration-300 lg:rounded-md">
                 Log in
               </Link>
             </>
           ) : (
-            <Link to="/dashboard" className="lg:px-6 lg:py-2 lg:text-lg bg-amber-800/90 hover:bg-amber-900 transition-all duration-300 rounded-md">
+            <Link to="/dashboard" className="lg:px-6 lg:py-2 lg:text-lg bg-amber-800/90 hover:bg-amber-900 transition-all duration-300 lg:rounded-md">
               Go to Dashboard
             </Link>
           )}

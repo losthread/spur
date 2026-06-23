@@ -236,20 +236,20 @@ export default function Dashboard() {
     <section className="lg:p-8">
       <div>
         {error && (
-          <div className="mb-4 p-4 bg-red-950 border border-red-800 rounded-lg text-red-400">
+          <div className="lg:mb-4 lg:p-4 bg-red-950 border border-red-800 rounded-lg text-red-400">
             {error}
           </div>
         )}
 
-        <div className="flex items-center gap-8">
+        <div className="flex items-center lg:gap-8">
           {/* top left section user + quick overview */}
           <div className="flex flex-3 flex-col lg:gap-8">
-            <div className="bg-zinc-950 border border-zinc-800 rounded-xl lg:p-6">
+            <div className="bg-zinc-950 border border-zinc-800 lg:rounded-xl lg:p-6">
               <h1 className="lg:text-2xl font-semibold">
                 Welcome back, {user.username}
               </h1>
 
-              <p className="text-zinc-400 mt-2">
+              <p className="text-zinc-400 lg:mt-2">
                 Manage links, track clicks, and monitor performance from one
                 place.
               </p>
@@ -266,7 +266,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="bg-zinc-950 border border-zinc-800 rounded-xl lg:p-6">
+            <div className="bg-zinc-950 border border-zinc-800 lg:rounded-xl lg:p-6">
               <h2 className="lg:text-xl font-semibold lg:mb-4">
                 Quick Overview
               </h2>
@@ -365,14 +365,14 @@ export default function Dashboard() {
                   className="border-zinc-800 hover:bg-zinc-900/50"
                 >
                   {/* Clickable original URL with edit on hover */}
-                  <TableCell className="max-w-[250px]">
+                  <TableCell className="lg:max-w-62.5">
                     {editingUrlId === u.url_id ? (
-                      <div className="flex gap-2">
+                      <div className="flex lg:gap-2">
                         <input
                           type="text"
                           value={editingNewUrl}
                           onChange={(e) => setEditingNewUrl(e.target.value)}
-                          className="flex-1 bg-zinc-900 border border-zinc-700 rounded px-2 py-1 text-sm text-white"
+                          className="flex-1 bg-zinc-900 border border-zinc-700 rounded lg:px-2 lg:py-1 text-sm text-white"
                           placeholder="Enter new URL"
                           autoFocus
                         />
@@ -381,13 +381,13 @@ export default function Dashboard() {
                             handleUpdate(u.short_code, u.url_id, editingNewUrl)
                           }
                           disabled={loadingId === u.url_id}
-                          className="bg-green-700 hover:bg-green-600 disabled:bg-gray-600 text-white px-2 py-1 rounded text-sm transition"
+                          className="bg-green-700 hover:bg-green-600 disabled:bg-gray-600 text-white lg:px-2 lg:py-1 rounded lg:text-sm transition"
                         >
                           {loadingId === u.url_id ? "..." : "Save"}
                         </button>
                         <button
                           onClick={cancelEdit}
-                          className="bg-zinc-700 hover:bg-zinc-600 text-white px-2 py-1 rounded text-sm transition"
+                          className="bg-zinc-700 hover:bg-zinc-600 text-white lg:px-2 lg:py-1 rounded lg:text-sm transition"
                         >
                           <X size={16} />
                         </button>
@@ -403,7 +403,7 @@ export default function Dashboard() {
                           {u.url}
                         </a>
                         <button
-                          className="ml-2 opacity-0 group-hover:opacity-100 transition text-zinc-400 hover:text-white flex-shrink-0"
+                          className="lg:ml-2 opacity-0 group-hover:opacity-100 transition text-zinc-400 hover:text-white shrink-0"
                           onClick={() => {
                             setEditingUrlId(u.url_id);
                             setEditingNewUrl(u.url);
@@ -439,7 +439,7 @@ export default function Dashboard() {
                   <TableCell>{formatDate(u.updated_at)}</TableCell>
 
                   {/* Actions: Copy + Delete */}
-                  <TableCell className="text-right flex justify-end gap-3">
+                  <TableCell className="text-right flex justify-end lg:gap-3">
                     {/* Copy button */}
                     <button
                       className="text-zinc-400 hover:text-white transition disabled:opacity-50"
@@ -462,7 +462,7 @@ export default function Dashboard() {
                       disabled={loadingId === u.url_id}
                     >
                       {loadingId === u.url_id ? (
-                        <span className="text-xs">...</span>
+                        <span className="lg:text-xs">...</span>
                       ) : (
                         <Trash2 size={16} />
                       )}

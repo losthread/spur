@@ -48,7 +48,7 @@ export default function Features() {
           return (
             <Card 
               key={feature.title} 
-              className="lg:p-6 border rounded-sm group relative overflow-hidden cursor-pointer transition-all duration-300 hover:border-amber-600/50"
+              className="lg:p-6 border lg:rounded-sm group relative overflow-hidden cursor-pointer transition-all duration-300 hover:border-amber-600/50"
             >
               {/* Gradient follow effect */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"

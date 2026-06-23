@@ -27,18 +27,18 @@ export default function Flow() {
             <div key={step.title} className="relative flex lg:gap-6 group">
               {/* Vertical line connector */}
               {idx !== flow.length - 1 && (
-                <div className="absolute left-5 top-12 w-0.5 h-16 bg-linear-to-b from-amber-600/50 to-transparent"></div>
+                <div className="absolute left-5 top-12 lg:w-0.5 lg:h-16 bg-linear-to-b from-amber-600/50 to-transparent"></div>
               )}
               
               {/* Number circle */}
-              <div className="w-10 h-10 rounded-full border-2 border-amber-600 bg-black flex items-center justify-center text-amber-600 font-bold shrink-0 group-hover:bg-amber-600 group-hover:text-black group-hover:shadow-lg group-hover:shadow-amber-600/50 transition-all duration-300 relative z-10">
+              <div className="lg:w-10 lg:h-10 lg:rounded-full lg:border-2 border-amber-600 bg-black flex items-center justify-center text-amber-600 font-bold shrink-0 group-hover:bg-amber-600 group-hover:text-black group-hover:shadow-lg group-hover:shadow-amber-600/50 transition-all duration-300 relative z-10">
                 {idx + 1}
               </div>
               
               {/* Content */}
-              <div className="pb-4 group-hover:translate-x-2 transition-transform duration-300">
+              <div className="lg:pb-4 group-hover:translate-x-2 transition-transform duration-300">
                 <h3 className="font-semibold lg:text-lg text-white group-hover:text-amber-600 transition-colors">{step.title}</h3>
-                <p className="text-muted-foreground lg:text-base mt-2">{step.description}</p>
+                <p className="text-muted-foreground lg:text-base lg:mt-2">{step.description}</p>
               </div>
             </div>
           ))}
