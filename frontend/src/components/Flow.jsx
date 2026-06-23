@@ -45,9 +45,16 @@ export default function Flow() {
         </div>
       </div>
 
-      <div className="relative flex-1 aspect-video rounded-lg border border-amber-600/20 overflow-hidden bg-black/50 flex items-center justify-center group cursor-pointer max-w-2xl">         
-        {/* Placeholder text */}
-        <p className="text-muted-foreground relative z-5">Video Coming Soon</p>
+      <div className="relative flex-1 aspect-video lg:rounded-lg border border-amber-600/20 overflow-hidden bg-black/50 max-w-2xl">
+        <video
+          className="w-full h-full object-cover"
+          controls
+          muted
+          loop
+        >
+          <source src="/tut.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
     </section>
   )

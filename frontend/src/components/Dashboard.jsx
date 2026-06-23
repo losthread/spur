@@ -323,7 +323,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="lg:mt-10 flex flex-col lg:gap-10 overflow-x-auto bg-black/80">
+        <div className="lg:mt-10 flex flex-col lg:gap-10 overflow-x-auto">
           <form onSubmit={handleShorten}>
             <div className="w-full flex lg:gap-3">
               <Input
@@ -362,10 +362,10 @@ export default function Dashboard() {
               {urls.map((u) => (
                 <TableRow
                   key={u.url_id}
-                  className="border-zinc-800 hover:bg-zinc-900/50"
+                  className="border-zinc-800 hover:bg-zinc-900/50 overflow-x-scroll"
                 >
                   {/* Clickable original URL with edit on hover */}
-                  <TableCell className="lg:max-w-62.5">
+                  <TableCell>
                     {editingUrlId === u.url_id ? (
                       <div className="flex lg:gap-2">
                         <input
