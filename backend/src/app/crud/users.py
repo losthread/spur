@@ -193,7 +193,7 @@ def google_login(google_token: str):
           VALUES (%s, %s, %s, NOW())
           RETURNING user_id
         """,
-        (None, email, None)
+        (email, email, None)
       )
       row = cursor.fetchone()
       conn.commit()
