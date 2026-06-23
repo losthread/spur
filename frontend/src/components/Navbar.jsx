@@ -20,6 +20,7 @@ export default function Navbar({isLoggedIn, setIsLoggedIn}) {
       </div>
 
       <nav className="flex lg:gap-8">
+        <Link to='/' className="text-muted-foreground lg:text-md hover:text-white transition-all duration-200">Home</Link>
         {navlinks.map((link) => {
           return (
             <a

@@ -54,7 +54,7 @@ export default function Hero({ isLoggedIn }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`localhost:5173/go${shortCode}`);
+    navigator.clipboard.writeText(`localhost:5173/go/${shortCode}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -88,7 +88,6 @@ export default function Hero({ isLoggedIn }) {
               type="submit"
               disabled={isLoading}
               className="rounded-xl lg:text-lg lg:py-5"
-              onClick={handleCopy}
             >
               {isLoading ? "Shortening..." : "Shorten URL"}
             </Button>
@@ -104,7 +103,7 @@ export default function Hero({ isLoggedIn }) {
               <a 
                 rel="noopener" 
                 href={`http://localhost:5173/go/${shortCode}`} 
-                target="blank"
+                target="_blank"
                 className="underline lg:text-sm font-mono text-amber-600"
               >
                 http://localhost:5173/go/{shortCode}

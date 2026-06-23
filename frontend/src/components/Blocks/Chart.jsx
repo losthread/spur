@@ -7,24 +7,32 @@ import {
   Tooltip
 } from "recharts"
 
-// mock data ofc
-const chartData = [
-  { date: "Mon", clicks: 8 },
-  { date: "Tue", clicks: 14 },
-  { date: "Wed", clicks: 12 },
-  { date: "Thu", clicks: 20 },
-  { date: "Fri", clicks: 22 },
-  { date: "Sat", clicks: 20 },
-  { date: "Sun", clicks: 26 },
-]
-
 import { ChartContainer } from "@/components/ui/chart"
+import { useEffect } from "react";
 
-export default function AnalyticsChart() {
+const fallbackData = [
+  { date: "Mon", clicks: 0 },
+  { date: "Tue", clicks: 0 },
+  { date: "Wed", clicks: 0 },
+  { date: "Thu", clicks: 0 },
+  { date: "Fri", clicks: 0 },
+  { date: "Sat", clicks: 0 },
+  { date: "Sun", clicks: 0 },
+];
+
+export default function AnalyticsChart({ data = [] }) {
+  const chartData = fallbackData.map((day) => {
+    const found = data.find((d) => d.date === day.date);
+    return {
+      date: day.date,
+      clicks: found ? found.clicks : 0,
+    };
+  });
+
   return (
-    <div className="flex lg:gap-10 flex-col">
+    <div className="flex lg:gap-4 flex-col">
       <div>
-        <h3 className="text-center lg:text-2xl">Link Clicks (Last 7 Days)</h3>
+        <h3 className="text-center lg:text-2xl">Link Clicks (This Week)</h3>
       </div>
 
       <ChartContainer config={{}}>
@@ -33,7 +41,7 @@ export default function AnalyticsChart() {
           <XAxis
             dataKey="date"
             tick={{
-              fill: "#d4d4d8", // zinc-300
+              fill: "#d4d4d8",
               fontSize: 14,
             }}
             axisLine={{ stroke: "#d4d4d8" }}

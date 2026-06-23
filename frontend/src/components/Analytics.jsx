@@ -1,10 +1,20 @@
 import Chart from './Blocks/Chart'
 
+const chartData = [
+  { date: "Mon", clicks: 0 },
+  { date: "Tue", clicks: 4 },
+  { date: "Wed", clicks: 8 },
+  { date: "Thu", clicks: 3 },
+  { date: "Fri", clicks: 12 },
+  { date: "Sat", clicks: 8 },
+  { date: "Sun", clicks: 14 },
+]
+
 export default function Analytics() {
   return (
     <section id='analytics' className="flex flex-1 lg:gap-20 lg:px-20 lg:pt-20 lg:mb-30">
       <div className="flex-1">
-        <Chart />
+        <Chart data={chartData} />
       </div>
 
       <div className="flex flex-1 flex-col lg:gap-5">

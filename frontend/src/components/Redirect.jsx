@@ -7,24 +7,11 @@ export default function Redirect() {
 
   useEffect(() => {
     const redirect = async () => {
-      try {
-        const response = await fetch(`http://localhost:8000/go/${shortCode}`)
-        const data = await response.json()
+      const response = await fetch(`http://localhost:8000/go/${shortCode}`)
+      const data = await response.json()
 
-        if (response.ok) 
-        {
-          window.location.href = data.url
-        }
-        else 
-        {
-          window.location.href = '/'
-        }
-      } 
-
-      catch
-      {
-        window.location.href = '/'
-      }
+      if (response.ok) 
+        window.location.href = data.url;
     }
 
     redirect()

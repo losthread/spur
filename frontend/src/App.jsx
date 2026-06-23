@@ -10,6 +10,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Redirect from './components/Redirect';
 import { useState } from 'react';
+import Dashboard from './components/Dashboard';
 
 export default function App() {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -39,9 +40,10 @@ export default function App() {
                 <Analytics /> 
               </section>
             } />
-            <Route path='/Login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-            <Route path='/Register' element={<Register />} />
+            <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path='/register' element={<Register />} />
             <Route path='/go/:shortCode' element={<Redirect />} />
+            <Route path='/dashboard' element={<Dashboard />} />
           </Routes>
           <Footer /> 
         </div>
