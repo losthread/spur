@@ -121,41 +121,36 @@ def get_user_info(user_id):
     handle_error(e, cursor)
 
 def get_my_urls(user_id):
-  # create cursor
   cursor = conn.cursor()
 
   try:
     cursor.execute(
       """
-        SELECT users.user_id, users.username, urls.url_id, urls.url, urls.short_code, urls.created_at
-        FROM users
-        JOIN urls
-        ON users.user_id = urls.user_id
-        WHERE users.user_id = %s
+        SELECT url_id, url, short_code, times_visited, last_visited
+        FROM urls
+        WHERE user_id = %s
         ORDER BY urls.created_at DESC
       """,
       (user_id,)
     )
     rows = cursor.fetchall()
 
-    # rows not found 404
-    if rows is None:
+    if not rows:
       cursor.close()
-      raise HTTPException(status_code = 404, detail = "User not found")
-    
-    cursor.close
+      return []
 
-    result = list()
+    cursor.close()
+
+    result = []
 
     for row in rows:
       result.append(
         UserUrlResponse(
-          user_id=row[0],
-          username=row[1],
-          url_id=row[2],
-          url=row[3],
-          short_code=row[4],
-          created_at=row[5]
+          url_id=row[0],
+          url=row[1],
+          short_code=row[2],
+          times_visited=row[3],
+          last_visited=row[4], 
         )
       )
 

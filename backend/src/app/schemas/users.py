@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, HttpUrl
+from pydantic import BaseModel, EmailStr
 from datetime import datetime
 
 class UserRegister(BaseModel):
@@ -17,13 +17,11 @@ class UserProfile(BaseModel):
   created_at: datetime
 
 class UserUrlResponse(BaseModel):
-  user_id: int
-  username: str | None
-  email: EmailStr
   url_id: int
-  url: HttpUrl
+  url: str
   short_code: str
-  created_at: datetime
+  times_visited: int
+  last_visited: datetime | None = None
 
 class GoogleLoginRequest(BaseModel):
   token: str

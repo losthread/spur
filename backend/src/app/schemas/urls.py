@@ -26,12 +26,7 @@ class URLLookupResponse(BaseModel):
   created_at: datetime
   updated_at: datetime
 
-# get stats about the url
-class URLStatsResponse(BaseModel):
-  url_id: int
-  url: str
-  short_code: str
-  times_visited: int
-  last_visited: datetime | None = None
-  created_at: datetime
-  updated_at: datetime
+# chart schema
+class ChartPoint(BaseModel):
+  date: str
+  clicks: int

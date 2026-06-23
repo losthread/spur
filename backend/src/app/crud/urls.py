@@ -1,8 +1,9 @@
 from ..core.config import conn
 from .exception import handle_error
-from ..schemas.urls import URLResponse, URLLookupResponse, URLStatsResponse
+from ..schemas.urls import URLResponse, URLLookupResponse, ChartPoint
 from fastapi import HTTPException
 from psycopg2.errors import UniqueViolation
+from datetime import datetime, timedelta
 import secrets
 import string
 
@@ -63,6 +64,14 @@ def retrieve_original_url(short_code):
   try:
     cursor.execute(
       """
+        INSERT INTO visits (short_code)
+        VALUES (%s)
+      """,
+      (short_code,)
+    )
+    
+    cursor.execute(
+      """
         UPDATE urls
         SET times_visited = times_visited + 1, last_visited = NOW()
         WHERE short_code = %s
@@ -70,6 +79,7 @@ def retrieve_original_url(short_code):
       """,
       (short_code,)
     )
+
     row = cursor.fetchone()
     conn.commit()
 
@@ -167,42 +177,44 @@ def delete_url(short_code: str, user_id: int):
   except Exception as e:
     handle_error(e, cursor)
 
-def get_url_stats(short_code, user_id):
-  # create cursor
+def get_chart_data(user_id: int) -> list[ChartPoint]:
   cursor = conn.cursor()
-
+  
   try:
+    # Get last 7 days of click data
     cursor.execute(
-      """
-        SELECT url_id, url, short_code, times_visited, last_visited, created_at, updated_at
-        FROM urls
-        WHERE short_code = %s AND user_id = %s
-        ORDER BY updated_at
-      """,
-      (short_code, user_id)
+    """
+      SELECT
+        DATE(v.visited_at) AS date,
+        COUNT(*) AS clicks
+      FROM visits v
+      JOIN urls u
+        ON v.short_code = u.short_code
+      WHERE u.user_id = %s AND v.visited_at >= date_trunc('week', NOW()) AND v.visited_at < date_trunc('week', NOW()) + INTERVAL '7 days'
+      GROUP BY DATE(v.visited_at)
+      ORDER BY date;
+    """,
+    (user_id,)
     )
-    row = cursor.fetchone()
-
-    # handle 404 short_code not found
-    if row is None:
-      cursor.close()
-      raise HTTPException(status_code = 404, detail = "Short URL not found")
     
+    rows = cursor.fetchall()
     cursor.close()
-
-    return URLStatsResponse(
-      url_id = row[0],
-      url = row[1],
-      short_code = row[2],
-      times_visited = row[3],
-      last_visited = row[4],
-      created_at = row[5],
-      updated_at = row[6]
-    )
-
-  # catch 404
-  except HTTPException:
-    raise
-
+    
+    # Generate all 7 days (including ones with 0 clicks)
+    last_7_days = []
+    for i in range(6, -1, -1):
+      date = datetime.now() - timedelta(days=i)
+      day_name = date.strftime('%a')
+      
+      # Find clicks for this day, or 0 if not found
+      clicks = next((row[1] for row in rows if row[0] == date.date()), 0)
+      
+      last_7_days.append({
+        "date": day_name,
+        "clicks": clicks
+      })
+    
+    return last_7_days
+  
   except Exception as e:
     handle_error(e, cursor)

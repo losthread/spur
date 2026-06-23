@@ -7,6 +7,7 @@ def handle_error(e, cursor):
   # undo DB chages on error
   conn.rollback()
   cursor.close()
+  print(e)
 
   # If Data already exists
   if isinstance(e, UniqueViolation):

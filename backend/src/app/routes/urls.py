@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status, Response
 from ..crud import urls as u
-from ..schemas.urls import URLCreate, URLLookupResponse, URLStatsResponse, URLUpdate, URLResponse
+from ..schemas.urls import URLCreate, URLLookupResponse, URLUpdate, URLResponse, ChartPoint
 from ..core.dependencies import get_user_id
 
 router = APIRouter()
@@ -26,7 +26,7 @@ async def delete_url(short_code: str, user_id: int = Depends(get_user_id)):
   u.delete_url(short_code, user_id)
   return Response(status_code = status.HTTP_204_NO_CONTENT)
 
-# get short url stats
-@router.get('/shorten/{short_code}/stats', response_model = URLStatsResponse)
-async def get_url_stats(short_code, user_id: int = Depends(get_user_id)) -> URLStatsResponse:
-  return u.get_url_stats(short_code, user_id)
+# get user's url daily clicks chart
+@router.get('/analytics', response_model=list[ChartPoint])
+async def get_chart_data(user_id: int = Depends(get_user_id)):
+  return u.get_chart_data(user_id)
