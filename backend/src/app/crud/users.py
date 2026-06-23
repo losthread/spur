@@ -126,7 +126,7 @@ def get_my_urls(user_id):
   try:
     cursor.execute(
       """
-        SELECT url_id, url, short_code, times_visited, last_visited
+        SELECT url_id, url, short_code, times_visited, last_visited, created_at, updated_at
         FROM urls
         WHERE user_id = %s
         ORDER BY urls.created_at DESC
@@ -151,6 +151,8 @@ def get_my_urls(user_id):
           short_code=row[2],
           times_visited=row[3],
           last_visited=row[4], 
+          created_at=row[5],
+          updated_at=row[6]
         )
       )
 

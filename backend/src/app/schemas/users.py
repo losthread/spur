@@ -22,6 +22,8 @@ class UserUrlResponse(BaseModel):
   short_code: str
   times_visited: int
   last_visited: datetime | None = None
+  created_at: datetime
+  updated_at: datetime
 
 class GoogleLoginRequest(BaseModel):
   token: str
