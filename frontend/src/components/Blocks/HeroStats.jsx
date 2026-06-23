@@ -41,7 +41,7 @@ export default function HeroStats() {
           label="Links Shortened" 
           icon={Link} 
           delay={500}
-          position="top-30 right-0"
+          position="top-33 right-0"
         />
 
         <Counter 

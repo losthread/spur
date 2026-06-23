@@ -57,7 +57,7 @@ export default function CardDemo() {
   };
 
   return (
-    <section className='flex items-center justify-center lg:my-10'>
+    <section className='flex items-center justify-center mx-7 my-10'>
       <Card className="w-full max-w-sm bg-black/20 backdrop-blur-xl">
         <CardHeader>
           <CardTitle>Register your account</CardTitle>
@@ -110,7 +110,7 @@ export default function CardDemo() {
             </div>
           </CardContent>
 
-          <CardFooter className="flex-col lg:gap-4 lg:mt-7 ">
+          <CardFooter className="flex-col lg:gap-4 mt-7 ">
             <Button 
               type="submit" 
               className="w-full" 
@@ -118,7 +118,7 @@ export default function CardDemo() {
               {isLoading ? 'Registering...' : 'Register'}
             </Button>
 
-            <p className="text-center text-muted-foreground text-sm">
+            <p className="mt-2 lg:mt-0 text-center text-muted-foreground text-base">
               Already have an account? <Link to="/login" className="text-amber-600 hover:underline">Log in</Link>
             </p>
           </CardFooter>

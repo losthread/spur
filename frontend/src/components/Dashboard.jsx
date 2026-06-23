@@ -233,7 +233,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <section className="lg:p-8">
+    <section className="px-6 pt-10 mb-15 lg:p-8">
       <div>
         {error && (
           <div className="lg:mb-4 lg:p-4 bg-red-950 border border-red-800 rounded-lg text-red-400">
@@ -241,10 +241,10 @@ export default function Dashboard() {
           </div>
         )}
 
-        <div className="flex items-center lg:gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-8">
           {/* top left section user + quick overview */}
-          <div className="flex flex-3 flex-col lg:gap-8">
-            <div className="bg-zinc-950 border border-zinc-800 lg:rounded-xl lg:p-6">
+          <div className="flex flex-3 flex-col gap-4 lg:gap-8">
+            <div className="hidden lg:block bg-zinc-950 border border-zinc-800 lg:rounded-xl lg:p-6">
               <h1 className="lg:text-2xl font-semibold">
                 Welcome back, {user.username}
               </h1>
@@ -266,26 +266,26 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="bg-zinc-950 border border-zinc-800 lg:rounded-xl lg:p-6">
-              <h2 className="lg:text-xl font-semibold lg:mb-4">
+            <div className="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+              <h2 className="lg:text-xl text-center lg:text-left font-semibold mb-4">
                 Quick Overview
               </h2>
 
               <div className="flex flex-col lg:gap-4">
-                <div>
-                  <p className="text-zinc-500 lg:text-sm">Total Links</p>
+                <div className="flex gap-3 lg:gap-0 lg:flex-col">
+                  <p className="text-zinc-500 lg:text-sm">Total Links:</p>
                   <p className="lg:text-2xl font-semibold">{urls.length}</p>
                 </div>
 
-                <div>
-                  <p className="text-zinc-500 lg:text-sm">Total Clicks</p>
+                <div className="flex gap-3 lg:gap-0 lg:flex-col">
+                  <p className="text-zinc-500 lg:text-sm">Total Clicks:</p>
                   <p className="lg:text-2xl font-semibold">
                     {urls.reduce((sum, url) => sum + url.times_visited, 0)}
                   </p>
                 </div>
 
-                <div>
-                  <p className="text-zinc-500 lg:text-sm">Most Popular Link</p>
+                <div className="flex gap-3 lg:gap-0 lg:flex-col overflow-scroll">
+                  <p className="text-zinc-500 lg:text-sm">Most Popular:</p>
 
                   <a
                     href={`http://localhost:5173/go/${
@@ -323,9 +323,9 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="lg:mt-10 flex flex-col lg:gap-10 overflow-x-auto">
+        <div className="mt-5 lg:mt-10 flex flex-col gap-10 overflow-x-scroll">
           <form onSubmit={handleShorten}>
-            <div className="w-full flex lg:gap-3">
+            <div className="w-full flex gap-4">
               <Input
                 type="url"
                 placeholder="https://example.com"
@@ -340,7 +340,7 @@ export default function Dashboard() {
                 disabled={isLoading}
                 className="rounded-xl lg:text-lg lg:py-5"
               >
-                {isLoading ? "Shortening..." : "Shorten URL"}
+                {isLoading ? "Shortening..." : "Shorten"}
               </Button>
             </div>
           </form>
@@ -439,7 +439,7 @@ export default function Dashboard() {
                   <TableCell>{formatDate(u.updated_at)}</TableCell>
 
                   {/* Actions: Copy + Delete */}
-                  <TableCell className="text-right flex justify-end lg:gap-3">
+                  <TableCell className="text-right flex justify-end gap-3">
                     {/* Copy button */}
                     <button
                       className="text-zinc-400 hover:text-white transition disabled:opacity-50"

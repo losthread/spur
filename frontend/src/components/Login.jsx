@@ -44,6 +44,7 @@ export default function CardDemo({ setIsLoggedIn }) {
         localStorage.setItem('access_token', data.access_token);
         setIsLoggedIn(true)
         navigate('/');
+        window.location.reload();
       }    
       else
       {
@@ -77,6 +78,7 @@ export default function CardDemo({ setIsLoggedIn }) {
       {
         localStorage.setItem('access_token', data.access_token);
         navigate('/');
+        window.location.reload();
       } 
       else 
       {
@@ -91,7 +93,7 @@ export default function CardDemo({ setIsLoggedIn }) {
   }
 
   return (
-    <section className='flex items-center justify-center lg:my-10'>
+    <section className='flex items-center justify-center mx-7 my-10'>
       <Card className="w-full max-w-sm bg-black/20 backdrop-blur-xl">
         <CardHeader>
           <CardTitle>Login to your account</CardTitle>
@@ -107,8 +109,8 @@ export default function CardDemo({ setIsLoggedIn }) {
 
         <form onSubmit={handleNormalLogin}>
           <CardContent>
-            <div className="flex flex-col lg:gap-6">
-              <div className="grid lg:gap-2">
+            <div className="flex flex-col gap-6">
+              <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
@@ -120,7 +122,7 @@ export default function CardDemo({ setIsLoggedIn }) {
                 />
               </div>
 
-              <div className="grid lg:gap-2">
+              <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                   <a
@@ -144,7 +146,7 @@ export default function CardDemo({ setIsLoggedIn }) {
             </div>
           </CardContent>
 
-          <CardFooter className="flex-col lg:gap-4 lg:mt-7 ">
+          <CardFooter className="flex-col gap-6 my-5 ">
             <Button 
               type="submit" 
               className="w-full" 

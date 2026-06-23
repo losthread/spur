@@ -8,7 +8,6 @@ import {
 } from "recharts"
 
 import { ChartContainer } from "@/components/ui/chart"
-import { useEffect } from "react";
 
 const fallbackData = [
   { date: "Mon", clicks: 0 },
@@ -20,7 +19,7 @@ const fallbackData = [
   { date: "Sun", clicks: 0 },
 ];
 
-export default function AnalyticsChart({ data = [] }) {
+export default function AnalyticsChart({ data = []}) {
   const chartData = fallbackData.map((day) => {
     const found = data.find((d) => d.date === day.date);
     return {
@@ -30,7 +29,7 @@ export default function AnalyticsChart({ data = [] }) {
   });
 
   return (
-    <div className="flex lg:gap-4 flex-col">
+    <div className="flex gap-2 lg:gap-4 flex-col">
       <div>
         <h3 className="text-center lg:text-2xl">Link Clicks (This Week)</h3>
       </div>
@@ -49,6 +48,7 @@ export default function AnalyticsChart({ data = [] }) {
           />
 
           <YAxis
+            width={22}
             tick={{
               fill: "#d4d4d8",
               fontSize: 14,

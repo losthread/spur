@@ -21,11 +21,11 @@ export default function App() {
   return (
     <GoogleOAuthProvider clientId={googleClientId}>
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-10 -left-32 w-80 h-96 bg-amber-900/14 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/3 left-9/10 w-40 h-84 bg-yellow-900/9 rounded-full blur-2xl"></div>
-        <div className="absolute top-8/10 left-1/8 w-80 h-80 bg-amber-800/8 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-86 h-56 bg-orange-900/7 rounded-full blur-2xl"></div>
-        <div className="absolute top-1/100 left-5/8 w-72 h-36 bg-amber-700/12 rounded-full blur-3xl"></div>
+        <div className="absolute -top-20 -left-40 w-70 h-100 lg:top-10 lg:-left-32 lg:w-80 lg:h-96 bg-amber-900/14 rounded-full blur-3xl"></div>
+        <div className="absolute top-40 left-60 w-70 h-200 lg:top-1/3 lg:left-9/10 lg:w-40 lg:h-84 bg-yellow-900/9 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-40 right-59 w-120 h-70 lg:top-8/10 lg:left-1/8 lg:w-80 lg:h-80 bg-amber-800/8 rounded-full blur-3xl"></div>
+        <div className="absolute lg:bottom-1/4 lg:right-1/4 lg:w-86 lg:h-56 bg-orange-900/7 rounded-full blur-2xl"></div>
+        <div className="absolute lg:top-1/100 lg:left-5/8 lg:w-72 lg:h-36 bg-amber-700/12 rounded-full blur-3xl"></div>
       </div>
 
       <BrowserRouter>
