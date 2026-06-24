@@ -16,10 +16,12 @@ import { GoogleLogin } from '@react-oauth/google'
 
 export default function CardDemo({ setIsLoggedIn }) {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleRegister = () => {
     navigate("/register")
@@ -27,11 +29,12 @@ export default function CardDemo({ setIsLoggedIn }) {
 
   const handleNormalLogin = async (e) => {
     e.preventDefault();
+    setError("");
 
     setIsLoading(true);
     try 
     {
-      const response = await fetch('http://localhost:8000/login', {
+      const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -64,9 +67,11 @@ export default function CardDemo({ setIsLoggedIn }) {
   };
 
   const handleGoogleLogin = async (credentialResponse) => {
+    setError("");
+
     try 
     {
-      const response = await fetch('http://localhost:8000/login/google', {
+      const response = await fetch(`${API_URL}/login/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: credentialResponse.credential }),
@@ -77,6 +82,7 @@ export default function CardDemo({ setIsLoggedIn }) {
       if (response.ok) 
       {
         localStorage.setItem('access_token', data.access_token);
+        setIsLoggedIn(true);
         navigate('/');
         window.location.reload();
       } 
@@ -125,12 +131,6 @@ export default function CardDemo({ setIsLoggedIn }) {
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block lg:text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
                 </div>
 
                 <Input 
@@ -155,10 +155,12 @@ export default function CardDemo({ setIsLoggedIn }) {
               {isLoading ? 'Logging in...' : 'Login'}
             </Button>
 
-            <GoogleLogin
-              onSuccess={handleGoogleLogin}
-              onError={() => setError('Google login failed')}
+            {!isLoading && (
+              <GoogleLogin
+                onSuccess={handleGoogleLogin}
+                onError={() => setError('Google login failed')}
               />
+            )}
           </CardFooter>
         </form>
       </Card>

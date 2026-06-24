@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import AnalyticsChart from "./Blocks/Chart";
@@ -25,14 +24,14 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(false);
   const [shortCode, setShortCode] = useState("");
   const [url, setURL] = useState("");
-  const navigate = useNavigate();
 
+  const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("access_token");
 
   // fetch user details
   const getUserDetails = async (token) => {
     try {
-      const response = await fetch("http://localhost:8000/users/me", {
+      const response = await fetch(`${API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +48,7 @@ export default function Dashboard() {
 
   const getUrlsDetails = async (token) => {
     try {
-      const response = await fetch("http://localhost:8000/users/me/urls", {
+      const response = await fetch(`${API_URL}/users/me/urls`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -66,7 +65,7 @@ export default function Dashboard() {
 
   const getChartData = async (token) => {
     try {
-      const response = await fetch("http://localhost:8000/analytics", {
+      const response = await fetch(`${API_URL}/analytics`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -82,7 +81,7 @@ export default function Dashboard() {
   };
 
   const handleCopy = (shortCode) => {
-    const fullUrl = `http://localhost:5173/go/${shortCode}`;
+    const fullUrl = `${window.location.origin}/go/${shortCode}`;
     navigator.clipboard.writeText(fullUrl);
     setCopiedId(shortCode);
     setTimeout(() => setCopiedId(null), 2000);
@@ -97,7 +96,7 @@ export default function Dashboard() {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/shorten/${shortCode}`,
+        `${API_URL}/shorten/${shortCode}`,
         {
           method: "DELETE",
           headers: {
@@ -131,7 +130,7 @@ export default function Dashboard() {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/shorten/${shortCode}`,
+        `${API_URL}/shorten/${shortCode}`,
         {
           method: "PUT",
           headers: {
@@ -183,7 +182,7 @@ export default function Dashboard() {
 
     try
     {
-      const response = await fetch("http://localhost:8000/shorten", {
+      const response = await fetch(`${API_URL}/shorten`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -288,7 +287,7 @@ export default function Dashboard() {
                   <p className="text-zinc-500 lg:text-sm">Most Popular:</p>
 
                   <a
-                    href={`http://localhost:5173/go/${
+                    href={`${window.location.origin}/go/${
                       urls.reduce(
                         (best, current) =>
                           !best || current.times_visited > best.times_visited
@@ -301,7 +300,7 @@ export default function Dashboard() {
                     rel="noopener noreferrer"
                     className="text-amber-500 lg:text-lg hover:underline"
                   >
-                    http://localhost:5173/go/
+                    {`${window.location.origin}/go/`}
                     {
                       urls.reduce(
                         (best, current) =>
@@ -419,12 +418,12 @@ export default function Dashboard() {
                   {/* Short URL */}
                   <TableCell className="font-mono text-amber-500">
                     <a
-                      href={`http://localhost:5173/go/${u.short_code}`}
+                      href={`${window.location.origin}/go/${u.short_code}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
                     >
-                      {`http://localhost:5173/go/${u.short_code}`}
+                      {`${window.location.origin}/go/${u.short_code}`}
                     </a>
                   </TableCell>
 

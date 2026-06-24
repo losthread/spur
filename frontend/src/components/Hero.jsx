@@ -12,6 +12,8 @@ export default function Hero({ isLoggedIn }) {
   const [shortCode, setShortCode] = useState("");
   const navigate = useNavigate();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const handleShorten = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -19,10 +21,12 @@ export default function Hero({ isLoggedIn }) {
     setShortCode("");
 
     try {
-      if (!isLoggedIn)
+      if (!isLoggedIn) {
         navigate('/login');
+        return
+      }
 
-      const response = await fetch("http://localhost:8000/shorten", {
+      const response = await fetch(`${API_URL}/shorten`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +57,7 @@ export default function Hero({ isLoggedIn }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`localhost:5173/go/${shortCode}`);
+    navigator.clipboard.writeText(`${window.location.origin}/go/${shortCode}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -101,11 +105,11 @@ export default function Hero({ isLoggedIn }) {
             <div className="w-full flex items-center justify-between">
               <a 
                 rel="noopener" 
-                href={`http://localhost:5173/go/${shortCode}`} 
+                href={`${window.location.origin}/go/${shortCode}`} 
                 target="_blank"
                 className="pointer underline text-xs md:text-base lg:text-sm font-mono text-amber-600"
               >
-                http://localhost:5173/go/{shortCode}
+                {`${window.location.origin}/go/${shortCode}`}
               </a>
               <Button
                 size="sm"
