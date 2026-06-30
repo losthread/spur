@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from datetime import datetime, timedelta, timezone
 from argon2 import PasswordHasher
 from argon2.exceptions import VerificationError, VerifyMismatchError, InvalidHashError
-from jwt import ExpiredSignatureError, InvalidTokenError
+from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 from google.oauth2 import id_token
 from google.auth.transport import requests
 import jwt 
