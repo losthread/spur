@@ -29,10 +29,37 @@ Create short links, track clicks, manage URLs from a dashboard, and analyze usag
 - shadcn/ui
 
 ## Installation
+1. Clone repo:
 ```bash
 git clone https://github.com/losthread/spur.git
 cd spur
 ```
+
+2. Configure environment:
+
+Create `.env` in project root:
+```env
+DATABASE_URL=your_db_url
+JWT_KEY=your_secret_key
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+Create `.env` in project frontend folder:
+```env
+VITE_GOOGLE_CLIENT_ID=your_vite_google_client_id
+VITE_API_URL=http://localhost:8000
+```
+
+3. Run with Docker Compose:
+```bash
+docker-compose up --build
+```
+
+4. Access the app:
+All three services (Frontend, Backend, PostgreSQL) are orchestrated by docker compose and will start automatically.
+
+## Manual Setup (without Docker)
 
 ### Backend Setup
 ```bash
@@ -45,11 +72,18 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Create a `.env` file:
+Create `.env` in project's root:
 ```env
-DATABASE_URL=your_database_url
+DATABASE_URL=your_db_url
 JWT_KEY=your_secret_key
 GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+Create `.env` in project's frontend folder:
+```env
+VITE_GOOGLE_CLIENT_ID=your_vite_google_client_id
+VITE_API_URL=http://localhost:8000
 ```
 
 Run the backend:
